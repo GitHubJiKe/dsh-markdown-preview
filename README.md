@@ -24,6 +24,9 @@ open in the system app, or reveal in the folder.
 - 1 MiB cap for text / 4 MiB for images, with an explicit truncation notice.
 - Keeps the stock experience: chips, "+ N files", and "Show in folder" still
   behave as before, and inline code-mentions of produced files stay clickable.
+- **Theme-aware preview panel**: background, body text, links, code and error
+  colors all use real DSH theme variables (v0.1.1 fixes unreadable text on the
+  always-white background in dark mode).
 
 ## Install
 
@@ -96,3 +99,14 @@ dsh plugin --profile web add file:$(pwd)
 ## License
 
 MIT
+
+## Changelog
+
+- **v0.1.1** (2026-08-15): Fix unreadable preview text in dark mode. The panel
+  used the non-existent `--dsw-alias-surface-raised` variable, so its background
+  was always white while body text inherited the chat area's light dark-mode
+  color. Background/text/link/error colors now use real theme variables
+  (`--dsw-alias-bg-layer-1`, `--dsw-alias-label-primary`,
+  `--dsw-alias-brand-primary`, `--dsw-alias-state-error-primary`), so the panel
+  follows light/dark themes automatically.
+- **v0.1.0** (2026-08-15): Initial release.
