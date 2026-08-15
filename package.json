@@ -1,0 +1,51 @@
+{
+  "name": "dsh-markdown-preview",
+  "description": "In-chat preview for produced files in DeepSeek Harness Web: click a produced-file chip to render Markdown (server-side markdown-it + highlight.js), images, or plain text right in the conversation; system-app open and reveal-in-folder stay one click away.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GitHubJiKe/dsh-markdown-preview.git"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "markdown",
+    "markdown-preview",
+    "preview",
+    "web-ui"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ],
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "highlight.js": "^11.11.1",
+    "markdown-it": "^15.0.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,17 @@
+# dsh-markdown-preview bundle patch: applied after dsh-web-app's patch layer.
+#
+# 1. Disable the shipped produced-files row (ui-deliverables): its turn-tail
+#    slot is first-match-wins, and this bundle owns the same slot with
+#    in-browser preview instead of the native opener. Its host-side prompt
+#    guidance and the chatFileMentions service are re-provided by this
+#    bundle's own host/client halves below.
+# 2. Insert this package as one dual-face row: lib/index.js is the host
+#    plugin (registers the /preview RPC channel over ctx.connection), and the
+#    dsh.client declaration in package.json makes the modules scanner serve
+#    lib/client.js to the browser.
+- id: ui-deliverables
+  disabled: true
+
+- insert:
+    - id: markdown-preview
+      name: 'dsh-markdown-preview'
