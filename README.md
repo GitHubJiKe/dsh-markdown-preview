@@ -16,7 +16,9 @@ open in the system app, or reveal in the folder.
 - **Markdown rendered properly** (GFM tables, fenced code, blockquotes, links,
   hard line breaks) with **syntax highlighting** in code fences
   (highlight.js common languages).
-- **Image preview** (PNG / JPEG / GIF / WebP) as data URLs — no extra route.
+- **Image preview** (PNG / JPEG / GIF / WebP / SVG) as data URLs — no extra
+  route. SVG is safe to inline: browsers never execute scripts inside SVG
+  loaded through an `<img>` element.
 - Plain-text fallback for every other text file; binary files are sniffed and
   refused with a clear message.
 - Panel header with file size, **copy content**, **open in system app**, and
