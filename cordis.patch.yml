@@ -1,17 +1,28 @@
-# dsh-markdown-preview bundle patch: applied after dsh-web-app's patch layer.
+# dsh-markdown-preview bundle patch: ADDITIVE.
 #
-# 1. Disable the shipped produced-files row (ui-deliverables): its turn-tail
-#    slot is first-match-wins, and this bundle owns the same slot with
-#    in-browser preview instead of the native opener. Its host-side prompt
-#    guidance and the chatFileMentions service are re-provided by this
-#    bundle's own host/client halves below.
-# 2. Insert this package as one dual-face row: lib/index.js is the host
-#    plugin (registers the /preview RPC channel over ctx.connection), and the
-#    dsh.client declaration in package.json makes the modules scanner serve
-#    lib/client.js to the browser.
-- id: ui-deliverables
-  disabled: true
-
+# This patch inserts exactly one plugin-owned row and touches nothing else. It
+# does not disable, rename, or re-declare any official row, so every official
+# bundle keeps its own registration and its own entry ID.
+#
+# Where the preview lives: the produced-files row occupies the turn-tail chain
+# seat `conversation.chat.turnTail`. A chain seat elects the first entry whose
+# selector accepts, in ascending slot priority, which is the slot layer's
+# documented extension point ("register at a different priority to shadow it").
+# This bundle's client half therefore registers at a negative priority and wins
+# that seat for turns it can preview, while the official produced-files row
+# stays enabled and remains the fallback for every turn this bundle declines —
+# and for the case where this plugin is uninstalled.
+#
+# What this bundle deliberately does NOT take over: the official produced-files
+# client keeps its deliverables Conversation Node definition, its
+# chatFileMentions provider and its deliverables dictionary namespace, and the
+# official produced-files host half keeps the final-response file-reference
+# prompt guidance. This bundle only reads the Turn data that official client
+# already publishes.
+#
+# lib/index.js is the host plugin (registers the /preview RPC channel over
+# ctx.connection); the dsh.client declaration in package.json makes the
+# modules scanner serve lib/client.js to the browser.
 - insert:
     - id: markdown-preview
       name: 'dsh-markdown-preview'

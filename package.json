@@ -1,7 +1,7 @@
 {
   "name": "dsh-markdown-preview",
   "description": "In-chat preview for produced files in DeepSeek Harness Web: click a produced-file chip to render Markdown (server-side markdown-it + highlight.js), images, or plain text right in the conversation; system-app open and reveal-in-folder stay one click away.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GitHubJiKe/dsh-markdown-preview.git"
@@ -29,6 +29,12 @@
     "preview",
     "web-ui"
   ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node test/mock-test.mjs"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
@@ -37,10 +43,48 @@
       "inject": [
         "@deepseek-ai/dsh-client-connection",
         "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-chat",
         "@deepseek-ai/dsh-client-ui-conversation"
       ],
       "platform": "web"
+    },
+    "compatibility": {
+      "dsh": ">=0.1.1-rc.2 <0.2.0",
+      "profiles": [
+        "web"
+      ],
+      "dshReleases": {
+        "0.1.1-rc.2": "compatible",
+        "0.1.5-rc.2": "compatible",
+        "0.1.6-alpha.1": "unknown",
+        "0.1.6-alpha.2": "compatible"
+      },
+      "dshOperations": {
+        "0.1.1-rc.2": {
+          "install": "passed",
+          "start": "passed",
+          "uninstall": "passed",
+          "rollback": "unknown"
+        },
+        "0.1.5-rc.2": {
+          "install": "passed",
+          "start": "passed",
+          "uninstall": "passed",
+          "rollback": "unknown"
+        },
+        "0.1.6-alpha.1": {
+          "install": "unknown",
+          "start": "unknown",
+          "uninstall": "unknown",
+          "rollback": "unknown"
+        },
+        "0.1.6-alpha.2": {
+          "install": "passed",
+          "start": "passed",
+          "uninstall": "passed",
+          "rollback": "unknown"
+        }
+      }
     }
   },
   "dependencies": {
